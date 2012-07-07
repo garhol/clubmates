@@ -14,12 +14,13 @@ class Location(models.Model):
     
     def __unicode__(self):
         return self.name
+
 		
 class Message(models.Model):
     user = models.ForeignKey(User)
     location = models.ForeignKey(Location)
     title = models.CharField(max_length=128)
-    reply = models.ForeignKey('self', null=True, blank=True)
+    in_reply_to = models.ForeignKey('self', null=True, blank=True)
     content = models.CharField(max_length=512)
     
     

@@ -31,7 +31,7 @@ class Migration(SchemaMigration):
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['clubmates.User'])),
             ('location', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['clubmates.Location'])),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=128)),
-            ('reply', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['clubmates.Message'], null=True, blank=True)),
+            ('in_reply_to', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['clubmates.Message'], null=True, blank=True)),
             ('content', self.gf('django.db.models.fields.CharField')(max_length=512)),
         ))
         db.send_create_signal('clubmates', ['Message'])
@@ -61,8 +61,8 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Message'},
             'content': ('django.db.models.fields.CharField', [], {'max_length': '512'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'in_reply_to': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['clubmates.Message']", 'null': 'True', 'blank': 'True'}),
             'location': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['clubmates.Location']"}),
-            'reply': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['clubmates.Message']", 'null': 'True', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['clubmates.User']"})
         },
