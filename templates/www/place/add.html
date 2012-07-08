@@ -27,8 +27,12 @@
         <input type="submit" value="Submit" />
         {% csrf_token %}
     </form>
+    <p>Centre/zoom the map to your desired location and then <span id="coords">click here</span> to fill form instamatically</p>
     
 	<div id=map></div>
+    <div class="clear">
+        <a href="/places/{{curr_location.id}}">Back to the {{curr_location}} listings</a>
+    </div>
     {% if venues %}
         <div id="venues">
            <h3>Venues in {{curr_location}}</h3>
@@ -41,7 +45,7 @@
     {% endif %}
 	{% if children %}
 		<div id="locations">
-			<h3>Places in {{curr_location}}</h3>
+			<h3>Places already added in {{curr_location}}</h3>
 			<ul>
 			{% for c in children %}
 					<li><a href="/places/{{c.id}}/" title="{{c}}">{{c}}</a></li>
@@ -50,20 +54,6 @@
 		</div>
 	{% endif %}
 	
-	<div id="siblings" class="clear">
-		{% if parent %}
-			<h3>Other places in <a href="/places/{{parent.id}}/" title="{{parent}}">{{parent}}</a></h3>
-			{% if siblings %}
-			<p>{% for s in siblings %}<a href="/places/{{s.id}}/" title="{{s}}">{{s}}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
-			</p>
-			{% else %}
-				<p>No other places listed</p>
-			{% endif %}
-		{% endif %}
-		<p>Add a <a href="/add/{{curr_location.id}}/" title="add a new location">new place</a> to {{curr_location}} </p>
-		<p>Add a listing at this location</p>
-	</div>
-	<p id="coords">get lat long</p>
 {% addtoblock 'css' %}
 <style>
     body {font-family: sans-serif}
@@ -72,6 +62,8 @@
 	div#locations {float:left;}
 	ul {list-style:none;}
     ul li{margin:0.5em 0;}
+    span#coords{font-weight:bold;}
+    span#coords:hover{cursor:pointer; cursor:hand;}
 </style>
 {% endaddtoblock %}
 

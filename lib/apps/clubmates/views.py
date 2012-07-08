@@ -95,7 +95,7 @@ def add_location(request, loc):
 
             return HttpResponseRedirect('/') # Redirect after POST
     else:
-        context['form'] = LocationForm() # An unbound form
+        context['form'] = LocationForm(initial={'parent':my_location.id}) # An unbound form
 
 
     return render_to_response('www/place/add.html', context, context_instance=RequestContext(request))
