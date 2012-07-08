@@ -1,0 +1,48 @@
+{% extends 'base_templates/base.html' %}
+{% load sekizai_tags %}
+{% block metatitle %}in {{curr_location}}{% endblock metatitle %}
+{% block main_content %}
+	<h1>Clubmates</h1>
+	<h2>You are currently viewing postings for {{curr_location}}</h2>
+	<div id=map></div>
+	<div id="listings">
+        <p>messages here</p>
+    </div>
+	<div id="siblings" class="clear">
+		{% if parent %}
+			<h3>Other places in <a href="/places/{{parent}}/" title="{{parent}}">{{parent}}</a></h3>
+			{% if siblings %}
+			<p>{% for s in siblings %}<a href="/places/{{s}}/" title="{{s}}">{{s}}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
+			</p>
+			{% else %}
+				<p>No other places listed</p>
+			{% endif %}
+		{% endif %}
+		<p>Add a listing at this location</p>
+	</div>
+	
+{% addtoblock 'css' %}
+<style>
+    body {font-family: sans-serif}
+    #map {width: 300px; height: 300px; float:left; margin-right:1em;}
+	.clear{clear:both}
+	div#locations {float:left;}
+	ul {list-style:none;}
+</style>
+{% endaddtoblock %}
+
+{% addtoblock 'js' %}
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script>
+var map;
+function initialize() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: {% if zoom %}{{zoom}}{% else %}15{% endif %},
+        center: new google.maps.LatLng({{lat}},{{lon}}),
+        mapTypeId: google.maps.MapTypeId.ROADMAP 
+    });
+}
+</script>
+{% endaddtoblock %}
+	
+{% endblock main_content %}

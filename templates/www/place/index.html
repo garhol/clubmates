@@ -15,7 +15,7 @@
            <h3>Venues in {{curr_location}}</h3>
            <ul>
            {% for v in venues %}
-                <li><a href="/venues/{{v.id}}/" title="{{v}}">{{v}}</a></li>
+                <li><a href="/venue/{{v.id}}/" title="{{v}}">{{v}}</a></li>
            {% endfor %}
            </ul>
         </div>
@@ -41,11 +41,7 @@
 				<p>No other places listed</p>
 			{% endif %}
 		{% endif %}
-		{% if parent %}
-			<p>Add a new place to {{parent}}? </p>
-		{% else %}
-			<p>Add a new place to {{curr_location}}? </p>
-		{% endif %}
+		<p>Add a new place to {{curr_location}} </p>
 		<p>Add a listing at this location</p>
 	</div>
 	
