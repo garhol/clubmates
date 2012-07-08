@@ -1,6 +1,6 @@
 {% extends 'base_templates/base.html' %}
 {% load sekizai_tags %}
-
+{% block metatitle %}in {{curr_location}}{% endblock metatitle %}
 {% block main_content %}
 	<h1>Clubmates</h1>
 	{% if not new_location %}
@@ -10,6 +10,16 @@
 		<h3>Would you like to add a listing?</h3>
 	{% endif %}
 	<div id=map></div>
+    {% if venues %}
+        <div id="venues">
+           <h3>Venues in {{curr_location}}</h3>
+           <ul>
+           {% for v in venues %}
+                <li><a href="/venues/{{v.id}}/" title="{{v}}">{{v}}</a></li>
+           {% endfor %}
+           </ul>
+        </div>
+    {% endif %}
 	{% if children %}
 		<div id="locations">
 			<h3>Places in {{curr_location}}</h3>
@@ -25,11 +35,8 @@
 		{% if parent %}
 			<h3>Other places in <a href="/places/{{parent}}/" title="{{parent}}">{{parent}}</a></h3>
 			{% if siblings %}
-			<ul>
-				{% for s in siblings %}
-					<li><a href="/places/{{s}}/" title="{{s}}">{{s}}</a></li>
-				{% endfor %}
-			</ul>
+			<p>{% for s in siblings %}<a href="/places/{{s}}/" title="{{s}}">{{s}}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
+			</p>
 			{% else %}
 				<p>No other places listed</p>
 			{% endif %}
@@ -58,7 +65,7 @@
 var map;
 function initialize() {
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 17,
+        zoom: {% if zoom %}{{zoom}}{% else %}15{% endif %},
         center: new google.maps.LatLng({{lat}},{{lon}}),
         mapTypeId: google.maps.MapTypeId.ROADMAP 
     });

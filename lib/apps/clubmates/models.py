@@ -11,9 +11,13 @@ class Location(models.Model):
     name = models.CharField(max_length=200)
     latitude = models.FloatField(blank = True, null=True)
     longitude = models.FloatField(blank = True, null=True)
+    density = models.IntegerField(blank=True, null=True)
+    venue = models.BooleanField()
     
     def __unicode__(self):
         return self.name
+
+
 
 		
 class Message(models.Model):
@@ -28,6 +32,4 @@ class Message(models.Model):
         return self.title
 
     def is_reply(self):
-        return self.reply != null
-		
-           
+        return self.reply != null    
