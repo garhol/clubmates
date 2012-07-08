@@ -25,6 +25,12 @@ def show_location(request, loc):
 		context['siblings'] = siblings
 	except:
 		pass
+	
+	try	:
+		children = Location.objects.filter(parent=my_location)
+		context['children'] = children
+	except:
+		pass
 
 	
 	context['curr_location'] = loc

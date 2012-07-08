@@ -1,0 +1,18 @@
+{% load sekizai_tags %}
+
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+{% render_block 'css' %}
+</head>
+<body onload='initialize()'>
+
+
+	{% block main_content %}
+	{% endblock main_content %}
+	
+
+{% render_block 'js' %}	
+</body>
+</html>

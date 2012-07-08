@@ -90,6 +90,17 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.contrib.auth.context_processors.auth',
+    'django.contrib.messages.context_processors.messages',
+    'django.core.context_processors.request',
+	'sekizai.context_processors.sekizai',
+) 
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -120,6 +131,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'clubmates.lib.apps.clubmates',
 	'south',
+	'sekizai',
 )
 
 # A sample logging configuration. The only tangible logging
