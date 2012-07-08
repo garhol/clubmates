@@ -2,18 +2,31 @@
 {% load sekizai_tags %}
 {% block metatitle %}in {{curr_location}}{% endblock metatitle %}
 {% block main_content %}
-	<h1>Welcome to Clubmates</h1>
+	<h1>Welcome</h1>
     <h3>Please select a location within the United Kingdom to begin</h3>
     
-	{% if children %}
+	{% if children %}{{SITE_ROOT}}
 		<div id="locations">
 			<h3>Places in United Kingdom</h3>
+                <img src="/static/images/maps/map.png"  />
 			<ul>
 			{% for c in children %}
-					<li><a href="/places/{{c}}/" title="{{c}}">{{c}}</a></li>
+					<li><a href="/places/{{c.id}}/" title="{{c}}">{{c}}</a></li>
 			{% endfor %}
 			</ul>
 		</div>
 	{% endif %}
+
+{% addtoblock 'css' %}
+<style>
+    body {font-family: sans-serif}
+    #map {width: 300px; height: 300px; float:left; margin-right:1em;}
+	.clear{clear:both}
+	div#locations {float:left;}
+	ul {list-style:none;}
+    ul li{margin:0.5em 0;}
+</style>
+{% endaddtoblock %}
+
 
 {% endblock main_content %}

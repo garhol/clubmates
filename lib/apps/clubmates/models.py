@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm
 
 class User(models.Model):
     mail = models.EmailField(max_length=254)   
@@ -17,8 +18,9 @@ class Location(models.Model):
     def __unicode__(self):
         return self.name
 
-
-
+class LocationForm(ModelForm):
+    class Meta:
+        model = Location
 		
 class Message(models.Model):
     user = models.ForeignKey(User)

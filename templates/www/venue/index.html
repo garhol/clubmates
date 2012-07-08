@@ -2,17 +2,36 @@
 {% load sekizai_tags %}
 {% block metatitle %}in {{curr_location}}{% endblock metatitle %}
 {% block main_content %}
-	<h1>Clubmates</h1>
+	<h1>Venue</h1>
 	<h2>You are currently viewing postings for {{curr_location}}</h2>
+       
+        <div id="crumbs">
+         <a href="/" title="home">Home</a>
+         {% if crumbs %}
+          > 
+            {% for c in crumbs reversed %}
+                {% if not forloop.last %}<a href="/places/{{c.id}}/" title="{{c}}">{{c}}</a> > {% else %}
+                {{c}}
+                {% endif %}
+            {% endfor  %}
+        {% endif %}
+        </div>
+        
 	<div id=map></div>
-	<div id="listings">
+    <div id="listings">
+    {% if messages %}
         <p>messages here</p>
+    {% else %}
+            <p>no messages, why not post one?</p>
+            <p><a href="/post/?venue={{curr_location.id}}/" title="Post a message for someone at {{curr_location}}"> post message</a></p>
+    {% endif %}
     </div>
+    
 	<div id="siblings" class="clear">
 		{% if parent %}
-			<h3>Other places in <a href="/places/{{parent}}/" title="{{parent}}">{{parent}}</a></h3>
+			<h3>Other venues in <a href="/places/{{parent.id}}/" title="{{parent}}">{{parent}}</a></h3>
 			{% if siblings %}
-			<p>{% for s in siblings %}<a href="/places/{{s}}/" title="{{s}}">{{s}}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
+			<p>{% for s in siblings %}<a href="/venue/{{s.id}}/" title="{{s}}">{{s}}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
 			</p>
 			{% else %}
 				<p>No other places listed</p>
@@ -28,6 +47,7 @@
 	.clear{clear:both}
 	div#locations {float:left;}
 	ul {list-style:none;}
+    ul li{margin:0.5em 0;}
 </style>
 {% endaddtoblock %}
 
@@ -39,7 +59,7 @@ function initialize() {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: {% if zoom %}{{zoom}}{% else %}15{% endif %},
         center: new google.maps.LatLng({{lat}},{{lon}}),
-        mapTypeId: google.maps.MapTypeId.ROADMAP 
+        mapTypeId: google.maps.MapTypeId.{% if sat %}HYBRID{% else %}ROADMAP{% endif %}, 
     });
 }
 </script>

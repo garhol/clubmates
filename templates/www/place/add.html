@@ -4,7 +4,7 @@
 {% block main_content %}
 	<h1>Location</h1>
 	{% if not new_location %}
-    <h2>You are currently viewing listings for {{curr_location}}</h2>
+    <h2>You are currently adding a new location listings for {{curr_location}}</h2>
         <div id="crumbs">
          <a href="/" title="home">Home</a>
          {% if crumbs %}
@@ -21,6 +21,13 @@
 		<h2>We haven't visited {{curr_location}} yet!</h2>
 		<h3>Would you like to add a listing?</h3>
 	{% endif %}
+    
+    <form method="post" action="">
+        {{form.as_p}}
+        <input type="submit" value="Submit" />
+        {% csrf_token %}
+    </form>
+    
 	<div id=map></div>
     {% if venues %}
         <div id="venues">
@@ -56,7 +63,7 @@
 		<p>Add a <a href="/add/{{curr_location.id}}/" title="add a new location">new place</a> to {{curr_location}} </p>
 		<p>Add a listing at this location</p>
 	</div>
-	
+	<p id="coords">get lat long</p>
 {% addtoblock 'css' %}
 <style>
     body {font-family: sans-serif}
@@ -70,6 +77,7 @@
 
 {% addtoblock 'js' %}
 <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
 <script>
 var map;
 function initialize() {
@@ -79,6 +87,16 @@ function initialize() {
         mapTypeId: google.maps.MapTypeId.ROADMAP 
     });
 }
+
+$(document).ready(function() {
+  $('#coords').click(function() {
+    var placement = map.getCenter();
+   $('#id_latitude').val(placement.lat())
+   $('#id_longitude').val(placement.lng())
+   $('#id_density').val(map.getZoom())
+  });
+});
+
 </script>
 {% endaddtoblock %}
 	
