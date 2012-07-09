@@ -8,7 +8,15 @@
 	{% if children %}{{SITE_ROOT}}
 		<div id="locations">
 			<h3>Places in United Kingdom</h3>
-                <img src="/static/images/maps/map.png"  />
+            <div id="maps">
+                <img class="image" src="/static/images/maps/map.png"  />
+                <ul style="background:url(/static/images/maps/map.png) top left; width:266px; height:428px; padding:0px">
+                    <li id="scotland" title="Scotland" style="top:0px; left:0px;height:180px; margin:0px"><a href="/places/1/"></a></li>
+                    <li id="wales" title="Wales" style="height: 106px;left: 1px; margin: 0;position: relative;top: 74px;width: 119px;float:left;"><a href="/places/19/"></a></li>
+                    <li id="england1" title="England" style="float: left;height: 180px;left: 1px;margin: 0;position: relative;top: 0;width: 147px;"><a href="/places/7/">&nbsp;</a></li>
+                    <li id="england2" title="England" style="float: left;height: 64px;left: 1px;margin: 0;position: relative;top: 0;width: 265px;"><a href="/places/7/">&nbsp;</a></li>
+                </ul>
+            </div>
 			<ul>
 			{% for c in children %}
 					<li><a href="/places/{{c.id}}/" title="{{c}}">{{c}}</a></li>
@@ -20,11 +28,13 @@
 {% addtoblock 'css' %}
 <style>
     body {font-family: sans-serif}
-    #map {width: 300px; height: 300px; float:left; margin-right:1em;}
+    #map {width: 300px; height: 200px; float:left; margin-right:1em;}
 	.clear{clear:both}
 	div#locations {float:left;}
 	ul {list-style:none;}
     ul li{margin:0.5em 0;}
+    img.image{display:none;}
+    li a{width:100%; height:100%; display:block; text-decoration:none;}
 </style>
 {% endaddtoblock %}
 

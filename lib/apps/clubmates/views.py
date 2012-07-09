@@ -57,7 +57,7 @@ def show_venue(request, loc):
         context['lat'] = my_location.latitude
         context['lon'] = my_location.longitude
         context['zoom'] = 19
-        context['sat']= True
+        #context['sat']= True
     except:
         context['curr_location'] = loc
         context['new_location'] = True
