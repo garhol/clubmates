@@ -1,22 +1,31 @@
 {% load sekizai_tags %}
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-<title>Meet people {% block metatitle %}{% endblock metatitle %}</title>
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-{% render_block 'css' %}
-</head>
-<body onload='initialize()'>
-
-
+  <head>
+    <title>Meet people {% block metatitle %}{% endblock metatitle %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="{{STATIC_URL}}css/screen.css" rel="stylesheet" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Open+Sans' rel='stylesheet' type='text/css'>
+    {% render_block 'css' %}
+  </head>
+    <body onload='initialize()'>
+    <div class="container-fluid">
+    {% block header %}
+    <h1><a href="/">Clubmates</a></h1>
+    {% endblock %}
 	{% block main_content %}
 	{% endblock main_content %}
-	
+    </div>
 
-{% addtoblock 'base-js' %}
-    <script type="text/javascript" src="/static/admin/js/jquery.js"></script>
-{% endaddtoblock 'base-js' %}
-{% render_block 'base-js' %}	
-{% render_block 'js' %}	
-</body>
+
+    {% addtoblock 'base-js' %}
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    {% endaddtoblock 'base-js' %}
+    {% render_block 'base-js' %}	
+    {% render_block 'js' %}	
+
+  </body>
 </html>
